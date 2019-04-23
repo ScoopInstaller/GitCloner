@@ -11,7 +11,7 @@ artifacts:
     name: release
 
 deploy:
-  description: 'Release $(APPVEYOR_REPO_TAG_NAME)'
+  description: '$(GITHUB_RELEASE_NOTES)'
   provider: GitHub
   auth_token:
     secure: HmkRazkigvqjOypviF2hyTqwcrLMIC4zAHPUwRfKCi5MnkDHLLnYnOrwDAAtnMvc
