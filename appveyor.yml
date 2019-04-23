@@ -5,6 +5,8 @@ install:
   - ps: .\install.ps1
 build_script:
   - ps: .\build.ps1
+after_build:
+  - ps: .\release.ps1
 
 artifacts:
   - path: 'dist\*'
