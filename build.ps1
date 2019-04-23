@@ -11,7 +11,7 @@ Remove-Item "$build\*" -Recurse -Force | Out-Null
 Remove-Item "$dist\*" -Recurse -Force | Out-Null
 
 # Build
-Copy-Item "$PSScriptRoot\scoop-clone.ps1" $build
+Copy-Item "$PSScriptRoot\src\scoop-clone.ps1" $build
 Copy-Item "$PSScriptRoot\packages\LibGit2Sharp\lib\net46\LibGit2Sharp.dll" $build
 New-Item -ItemType Directory -Path "$build\lib\win32\x64\" -ErrorAction SilentlyContinue | Out-Null
 Copy-Item "$PSScriptRoot\packages\LibGit2Sharp.NativeBinaries\runtimes\win-x64\native\git2-*.dll" "$build\lib\win32\x64\"
