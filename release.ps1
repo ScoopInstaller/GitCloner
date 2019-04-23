@@ -3,7 +3,7 @@ Write-Output 'Generating release notes ...'
 $previousRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/releases/latest?access_token=$env:GITHUB_ACCESS_TOKEN" -Verbose)
 $compare = (Invoke-RestMethod -Uri "https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/compare/$($previousRelease.target_commitish)...$env:APPVEYOR_REPO_COMMIT`?access_token=$env:GITHUB_ACCESS_TOKEN" -Verbose)
 $releaseNotes = "## Release Notes`n#### Version [$env:APPVEYOR_REPO_TAG_NAME](https://github.com/$env:APPVEYOR_REPO_NAME/tree/$env:APPVEYOR_REPO_TAG_NAME)`n"
-$commits = $compare.commits | Sort-Object -Property @{Expression={$_.commit.author.date};} -Descending | Select-Object -SkipLast 1
+$commits = $compare.commits | Sort-Object -Property @{Expression={$_.commit.author.date};} -Descending
 
 if($null -ne $commits -and $commits.Length -gt 0) {
     $releaseNotes += "`nCommit | Description`n--- | ---`n"
