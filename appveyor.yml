@@ -1,0 +1,23 @@
+version: "{build}-{branch}"
+image: Visual Studio 2017
+
+install:
+  - ps: .\install.ps1
+build_script:
+  - ps: .\build.ps1
+
+artifacts:
+  - path: 'dist\*'
+    name: release
+
+deploy:
+  description: 'Release $(APPVEYOR_REPO_TAG_NAME)'
+  provider: GitHub
+  auth_token:
+    secure: HmkRazkigvqjOypviF2hyTqwcrLMIC4zAHPUwRfKCi5MnkDHLLnYnOrwDAAtnMvc
+  artifact: 'release'
+  draft: false
+  prerelease: false
+  on:
+    branch: master
+    APPVEYOR_REPO_TAG: true
