@@ -8,7 +8,7 @@
 .PARAMETER Dir
     Target directory where the repository gets cloned to
 .EXAMPLE
-    PS > .\scoop-clone.ps1 -Repository 'https://github.com/<user>/<repo>/' -Directory '.\test-clone'
+    PS > .\gitcloner.ps1 -Repository 'https://github.com/<user>/<repo>/' -Directory '.\test-clone'
 #>
 param(
     [Parameter(Mandatory)]

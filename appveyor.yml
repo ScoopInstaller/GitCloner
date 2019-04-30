@@ -1,6 +1,8 @@
 version: "{build}-{branch}"
 image: Visual Studio 2017
 
+init:
+  - ps: '(Get-ChildItem -Path "Env:").Where({ $_.Name -match "^(?:BH|CI(?:_|$)|APPVEYOR)" })'
 install:
   - ps: .\install.ps1
 build_script:

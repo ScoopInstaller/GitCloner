@@ -1,14 +1,14 @@
 Write-Output 'Generating release notes ...'
 #region GitHub release notes
 $previousRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/releases/latest?access_token=$env:GITHUB_ACCESS_TOKEN" -Verbose)
+Write-Host "Previous Release: $($previousRelease.name) ($($previousRelease.target_commitish))"
 $compare = (Invoke-RestMethod -Uri "https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/compare/$($previousRelease.target_commitish)...$env:APPVEYOR_REPO_COMMIT`?access_token=$env:GITHUB_ACCESS_TOKEN" -Verbose)
 $releaseNotes = "## Release Notes`n#### Version [$env:APPVEYOR_REPO_TAG_NAME](https://github.com/$env:APPVEYOR_REPO_NAME/tree/$env:APPVEYOR_REPO_TAG_NAME)`n"
-$commits = $compare.commits | Sort-Object -Property @{Expression={$_.commit.author.date};} -Descending
 
-if($null -ne $commits -and $commits.Length -gt 0) {
+if($null -ne $compare.commits -and $compare.commits.Length -gt 0) {
     $releaseNotes += "`nCommit | Description`n--- | ---`n"
     $contributions = @{}
-    $commits | ForEach-Object {
+    $compare.commits | Sort-Object -Property @{Expression={$_.commit.author.date};} -Descending | ForEach-Object {
         $commitMessage = $_.commit.message.Replace("`r`n"," ").Replace("`n"," ");
         if ($commitMessage.ToLower().StartsWith('merge') -or
             $commitMessage.ToLower().StartsWith('merging') -or
