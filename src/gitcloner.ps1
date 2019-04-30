@@ -11,9 +11,9 @@
     PS > .\gitcloner.ps1 -Repository 'https://github.com/<user>/<repo>/' -Directory '.\test-clone'
 #>
 param(
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory = $true, Position = 0)]
     [String] $Repository,
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory = $true, Position = 1)]
     [String] $Directory
 )
 
