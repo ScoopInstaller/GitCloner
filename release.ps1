@@ -1,3 +1,7 @@
+if(!$env:APPVEYOR_REPO_TAG) {
+    return
+}
+
 Write-Output 'Generating release notes ...'
 #region GitHub release notes
 $previousRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/$env:APPVEYOR_REPO_NAME/releases/latest?access_token=$env:GITHUB_ACCESS_TOKEN" -Verbose)
